@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Početna Strana</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Početna strana</a>
+            <a href="" id="a2" class="navbar-brand">Predlog pojmova</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Zanimljiva Geografija</h1>
+        <hr>
+
+        <h3>Korisničko ime</h3>
+
+        <br><br>
+            <form id="formUsername">
+                <p>Unesite svoje korisničko ime</p>
+                <input type="text" class="form-control" name="username" id="username" placeholder="Vaše korisničko ime...">
+                <br><br>
+                <input type="submit" id="btnUsername" value="Potvrdi">
+            </form>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAutBh54CD-O09VqyTjxA1JWi-k8n1mKHE",
+            authDomain: "zgeografija-ceb9f.firebaseapp.com",
+            databaseURL: "https://zgeografija-ceb9f.firebaseio.com",
+            projectId: "zgeografija-ceb9f",
+            storageBucket: "zgeografija-ceb9f.appspot.com",
+            messagingSenderId: "1036074296162",
+            appId: "1:1036074296162:web:ac886d8b2fc5f43621023b"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        let db = firebase.firestore();
+    </script>
+    <script src="script_index.js"></script>
+</body>
+</html>

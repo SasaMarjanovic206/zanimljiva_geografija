@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predlog Pojmova</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <a href="index.html" class="navbar-brand">Početna strana</a>
+            <a href="predlog_pojmova.html" class="navbar-brand">Predlog pojmova</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Zanimljiva Geografija</h1>
+        <hr>
+    </div>
+
+    <div class="container">
+        <h3>Predlog pojmova</h3>
+
+        <form id="formTerm">
+            <div class="form-group">
+                Kategorija
+                <select name="kategorija" id="kategorija">
+                    <option value="država">Država</option>
+                    <option value="grad">Grad</option>
+                    <option value="reka">Reka</option>
+                    <option value="planina">Planina</option>
+                    <option value="životinja">Životinja</option>
+                    <option value="biljka">Biljka</option>
+                    <option value="predmet">Predmet</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <br><br>
+                Pojam:
+                <input type="text" name="pojam" id="pojam" class="form-control">
+                <br><br>
+                <input type="submit" value="Pošalji" id="btnTerm">
+            </div>
+        </form>
+    </div>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+    
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+    
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyAutBh54CD-O09VqyTjxA1JWi-k8n1mKHE",
+                authDomain: "zgeografija-ceb9f.firebaseapp.com",
+                databaseURL: "https://zgeografija-ceb9f.firebaseio.com",
+                projectId: "zgeografija-ceb9f",
+                storageBucket: "zgeografija-ceb9f.appspot.com",
+                messagingSenderId: "1036074296162",
+                appId: "1:1036074296162:web:ac886d8b2fc5f43621023b"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            let db = firebase.firestore();
+        </script>
+        <script src="script_pojmovi.js"></script>
+</body>
+</html>

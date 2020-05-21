@@ -1,77 +1,104 @@
 class Pojam{
-    constructor(kat, kor, ps){
-        this.kategorija = kat;
+    constructor(kor){
         this.korisnik = kor;
-        this.prvoSlovo = ps;
         this.pojmovi = db.collection('pojmovi');
     }
 
-    set kategorija(kat){
-        this._kategorija = kat;
-    }
     set korisnik(kor){
         this._korisnik = kor;
     }
-    set prvoSlovo(ps){
-        this._prvoSlovo = ps;
-    }
 
-    get kategorija(){
-        return this._kategorija;
-    }
     get korisnik(){
         return this._korisnik;
     }
-    get prvoSlovo(){
-        return this._prvoSlovo;
+
+    validacijaPojma(term){
+
+        let trimTerm = term.replace(/[^a-zA-Z]/g, "");
+        let firstLetter = trimTerm.substring(0, 1);
+        let rest = trimTerm.substring(1);
+        let input = firstLetter.toUpperCase() + rest.toLowerCase();
+        return input;
     }
 
-    async dodajPojam(term){
+    prvoSlovo(trimValue){
+        let fLetter = trimValue.substring(0, 1);
+        return fLetter;
+    }
 
+    async dodajPojam(rec, kategorija){
+
+        let novaRec = this.validacijaPojma(rec);
         let dateTmp = new Date();
 
         let pojam = {
             vreme: firebase.firestore.Timestamp.fromDate(dateTmp),
-            kategorija: this.kategorija,
-            pojam: term,
+            kategorija: kategorija,
+            pojam: novaRec,
             korisnik: this.korisnik,
-            početnoSlovo: this.prvoSlovo
+            početnoSlovo: this.prvoSlovo(novaRec)
         }
 
         let dodavanje = await this.pojmovi.add(pojam);
         return dodavanje;
-
     }
+
+    proveraPojma(kategorija, rec, callback) {
+        let a = true;
+        let pojam = this.validacijaPojma(rec);
+        this.pojmovi
+            .where('kategorija', '==', kategorija)
+            .where('pojam', '==', pojam)
+            .get()
+            .then( snapshot => {
+                snapshot.docs.forEach( doc => {
+                    if(doc.data()) {
+                        a = false;
+                    }
+                });
+                callback(a);
+            })
+            .catch( error => { console.log(error)});
+    }
+
 }
 
-
 let formTerm = document.querySelector("#formTerm");
-let kat = document.querySelector("#kategorija");
+// let kat = document.querySelector("#kategorija");
 let pojam = document.querySelector("#pojam");
 let submitPojam = document.querySelector("#btnTerm");
 
 let vrednostPojma = pojam.value;
-let trimVrednostPojma = vrednostPojma.replace(/[^a-zA-Z]/g, "");
-let prvoSlovo = trimVrednostPojma.substring(0, 1);
-let velikoSlovo = prvoSlovo.toUpperCase();
+// let opcija = kat.options[kat.selectedIndex].text;
 
-let opcija = kat.options[kat.selectedIndex].text;
-
-let korisnik = localStorage.korisnik;
-
-let inputTerm = new Pojam(korisnik, opcija, velikoSlovo);
+let inputTerm = new Pojam(localStorage.korisnik);
 console.log(inputTerm);
 
-
-formTerm.addEventListener('submit', e => {
+formTerm.addEventListener( 'submit', e => {
     e.preventDefault();
-    let term = pojam.value;
-    let trimTerm = term.replace(/[^a-zA-Z]/g, "");
-    let firstLetter = trimTerm.substring(0, 1);
-    let rest = trimTerm.substring(1);
-    let input = firstLetter.toUpperCase() + rest.toLowerCase();
 
-    inputTerm.dodajPojam(input)
-        .then(() => {formNewMessage.reset()})
-        .catch(err => console.log(err))
+    let kat = document.querySelector("#kategorija");
+    let opcija = kat.options[kat.selectedIndex].text;
+    let vrednostPojma = pojam.value;
+    let item = inputTerm.validacijaPojma(vrednostPojma);
+    if(item != "")
+    {
+        inputTerm.proveraPojma(opcija, item, b => {
+            if(b == true)
+            {
+                inputTerm.dodajPojam(item, opcija);
+                formTerm.reset();
+            }
+            else
+            {
+                console.log("Pojam vec postoji u bazi!");
+                formTerm.reset();
+            }
+        })
+    }
+    else
+    {
+        alert("Morate uneti nesto!");
+    }
+
 });

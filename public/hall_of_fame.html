@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Predlog Pojmova</title>
+    <title>Hall of Fame</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -23,29 +23,9 @@
     </div>
 
     <div class="container">
-        <h3>Predlog pojmova</h3>
+        <h3>Hall of Fame</h3>
 
-        <form id="formTerm">
-            <div class="form-group">
-                Kategorija
-                <select name="kategorija" id="kategorija">
-                    <option value="država">Država</option>
-                    <option value="grad">Grad</option>
-                    <option value="reka">Reka</option>
-                    <option value="planina">Planina</option>
-                    <option value="životinja">Životinja</option>
-                    <option value="biljka">Biljka</option>
-                    <option value="predmet">Predmet</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <br><br>
-                Pojam:
-                <input type="text" name="pojam" id="pojam" class="form-control">
-                <br><br>
-                <input type="submit" value="Pošalji" id="btnTerm">
-            </div>
-        </form>
+        <p id="demo"></p>
     </div>
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -70,6 +50,6 @@
             firebase.initializeApp(firebaseConfig);
             let db = firebase.firestore();
         </script>
-        <script src="script_pojmovi.js"></script>
+        <script src="script_hall.js"></script>
 </body>
 </html>

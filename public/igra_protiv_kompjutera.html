@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Predlog Pojmova</title>
+    <title>Igra protiv kompjutera</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -25,29 +25,56 @@
     </div>
 
     <div class="container">
-        <h3>Predlog pojmova</h3>
+        <h3>Započni igru</h3>
+        <button type="button" class="col-md-3 btn-lg btn-primary" id="btnStart">Start</button>
+        <br>
 
-        <form id="formTerm">
-            <div class="form-group">
-                Kategorija
-                <select name="kategorija" id="kategorija">
-                    <option value="država">Država</option>
-                    <option value="grad">Grad</option>
-                    <option value="reka">Reka</option>
-                    <option value="planina">Planina</option>
-                    <option value="životinja">Životinja</option>
-                    <option value="biljka">Biljka</option>
-                    <option value="predmet">Predmet</option>
-                </select>
-            </div>
-            <div class="form-group">
+        <h4 id="letter">Slovo:</h4>
+        <p id="counter"></p>
+
+        <div class="div col-md-3">
+            <form>
+                <h3>Korisnik</h3>
+                <label>Država</label>
+                <input type="text" name="drzava" id="drzava">
                 <br><br>
-                Pojam:
-                <input type="text" name="pojam" id="pojam" class="form-control">
+                <label>Grad</label>
+                <input type="text" name="grad" id="grad">
                 <br><br>
-                <input type="submit" value="Pošalji" id="btnTerm">
-            </div>
-        </form>
+                <label>Reka</label>
+                <input type="text" name="reka" id="reka">
+                <br><br>
+                <label>Planina</label>
+                <input type="text" name="planina" id="planina">
+                <br><br>
+                <label>Životinja</label>
+                <input type="text" name="zivotinja" id="zivotinja">
+                <br><br>
+                <label>Biljka</label>
+                <input type="text" name="biljka" id="biljka">
+                <br><br>
+                <label>Predmet</label>
+                <input type="text" name="predmet" id="predmet">
+                <br><br><br>
+                <input type="submit" name="potvrdi" value="Potvrdi" id="potvrdi">
+                <h3 class="skor">Ukupan skor korisnika:</h3>
+            </form>
+        </div>
+        <div class="float-right">
+            <h3>Računar</h3>
+            <p class="komp-p">Država <span></span></p>
+            <p class="komp-p">Grad <span></span></p>
+            <p class="komp-p">Reka <span></span></p>
+            <p class="komp-p">Planina <span></span></p>
+            <p class="komp-p">Životinja <span></span></p>
+            <p class="komp-p">Biljka <span></span></p>
+            <p class="komp-p">Predmet <span></span></p>
+            <br>
+            <h3 class="skor">Ukupan skor računara:</h3>
+        </div>
+
+        <button type="button" class="col-md-3 btn-lg btn-primary" id="btnReset">Nova igra</button>
+
     </div>
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -72,6 +99,6 @@
             firebase.initializeApp(firebaseConfig);
             let db = firebase.firestore();
         </script>
-        <script src="script_pojmovi.js"></script>
+        <script src="script_protiv_kompjutera.js"></script>
 </body>
 </html>

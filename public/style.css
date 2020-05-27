@@ -13,8 +13,7 @@ h4 {
     width: 50%;
 }
 input {
-    width: 80%;
-    float: right;
+    width: 60%;
 }
 .komp-p {
     margin-bottom: 25px;
@@ -28,4 +27,32 @@ input {
 }
 .skor {
     visibility: hidden;
+}
+label {
+    width: 15%;
+    display: inline-block;
+}
+.rezultat {
+    width: 50%;
+    position: absolute;
+}
+#listaKorisnika {
+    display: none;
+    float: left;
+    width: 45%;
+    border: 1px solid black;
+}
+#listaRacunara {
+    display: none;
+    float: right;
+    width: 45%;
+    border: 1px solid black;
+}
+#listaKorisnika:first-child {
+    font-weight: bold;
+    color: darkolivegreen;
+}
+#listaRacunara:first-child {
+    font-weight: bold;
+    color: darkolivegreen;
 }

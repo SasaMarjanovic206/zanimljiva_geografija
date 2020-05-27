@@ -33,44 +33,53 @@
         <p id="counter"></p>
 
         <div class="div col-md-3">
-            <form>
+            <form id="formUser">
                 <h3>Korisnik</h3>
                 <label>Država</label>
-                <input type="text" name="drzava" id="drzava">
+                <input type="text" name="Država" id="drzava">
                 <br><br>
                 <label>Grad</label>
-                <input type="text" name="grad" id="grad">
+                <input type="text" name="Grad" id="grad">
                 <br><br>
                 <label>Reka</label>
-                <input type="text" name="reka" id="reka">
+                <input type="text" name="Reka" id="reka">
                 <br><br>
                 <label>Planina</label>
-                <input type="text" name="planina" id="planina">
+                <input type="text" name="Planina" id="planina">
                 <br><br>
                 <label>Životinja</label>
-                <input type="text" name="zivotinja" id="zivotinja">
+                <input type="text" name="Životinja" id="zivotinja">
                 <br><br>
                 <label>Biljka</label>
-                <input type="text" name="biljka" id="biljka">
+                <input type="text" name="Biljka" id="biljka">
                 <br><br>
                 <label>Predmet</label>
-                <input type="text" name="predmet" id="predmet">
+                <input type="text" name="Predmet" id="predmet">
                 <br><br><br>
                 <input type="submit" name="potvrdi" value="Potvrdi" id="potvrdi">
-                <h3 class="skor">Ukupan skor korisnika:</h3>
+                <h3 class="skor" id="skor_korisnika">Ukupan skor korisnika:</h3>
             </form>
         </div>
         <div class="float-right">
             <h3>Računar</h3>
-            <p class="komp-p">Država <span></span></p>
-            <p class="komp-p">Grad <span></span></p>
-            <p class="komp-p">Reka <span></span></p>
-            <p class="komp-p">Planina <span></span></p>
-            <p class="komp-p">Životinja <span></span></p>
-            <p class="komp-p">Biljka <span></span></p>
-            <p class="komp-p">Predmet <span></span></p>
+            <p class="komp-p">Država</p>
+            <p class="komp-p">Grad</p>
+            <p class="komp-p">Reka</p>
+            <p class="komp-p">Planina</p>
+            <p class="komp-p">Životinja</p>
+            <p class="komp-p">Biljka</p>
+            <p class="komp-p">Predmet</p>
             <br>
-            <h3 class="skor">Ukupan skor računara:</h3>
+            <h3 class="skor" id="skor_racunara">Ukupan skor računara:</h3>
+        </div>
+
+        <div class="rezultat">
+            <ul id="listaKorisnika">
+                <li>Korisnik</li>
+            </ul>
+            <ul id="listaRacunara">
+                <li>Racunar</li>
+            </ul>
         </div>
 
         <button type="button" class="col-md-3 btn-lg btn-primary" id="btnReset">Nova igra</button>

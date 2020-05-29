@@ -1,5 +1,6 @@
 let pojmovi = db.collection('pojmovi');
 let brojac = document.querySelector("#counter");
+let brojac2 = document.querySelector("#counter-none");
 let start = document.querySelector("#btnStart");
 let slovo = document.querySelector("#letter");
 let drzava = document.querySelector("#drzava");
@@ -15,6 +16,17 @@ let skorRacunara = document.querySelector("#skor_racunara");
 let skorKorisnika = document.querySelector("#skor_korisnika");
 let listaKorisnika = document.querySelector("#listaKorisnika");
 let listaRacunara = document.querySelector("#listaRacunara");
+let potvrdi = document.querySelector("#potvrdi");
+let winner = document.querySelector("#winner");
+let centar = document.querySelector("#centar");
+
+let broj = 60;
+let kliknuto = false;
+let nizOcenaKorisnika = [];
+let nizOcenaRacunara = [];
+
+document.querySelector("#kor").innerHTML = localStorage.korisnik;
+document.querySelector("#imeKorisnika").innerHTML = localStorage.korisnik;
 
 function prikaziSlovo(){
     let letters = ['A','B','C','Č','Ć','D','Dž','Đ','E','F','G','H','I','J','K','L','Lj','M','N','Nj','O','P','R','S','Š','T','U','V','Z','Ž'];
@@ -200,53 +212,110 @@ function proveraUnosaKorisnika(input, kategorija, ps){
 }
 
 function uporediRezultate(unosKorisnika, unosRacunara){
-    let liKorisnika = document.createElement('li');
-    let liRacunara = document.createElement('li');
 
-    if(unosKorisnika != 'false' && unosRacunara != 'false')
-    {
+        if(unosKorisnika != 'false' && unosRacunara != 'false')
+        {
             if(unosKorisnika == unosRacunara)
             {
-                liKorisnika.innerHTML = `${unosKorisnika} 5 poena`;
+                let liKorisnika = document.createElement('li');
+                liKorisnika.innerHTML = `<span class='sirina'>${unosKorisnika}</span> - 5 poena`;
                 listaKorisnika.appendChild(liKorisnika);
-                liRacunara.innerHTML = `${unosRacunara} 5 poena`;
+                nizOcenaKorisnika.push(5);
+
+                let liRacunara = document.createElement('li');
+                liRacunara.innerHTML = `<span class='sirina'>${unosRacunara}</span> - 5 poena`;
                 listaRacunara.appendChild(liRacunara);
+                nizOcenaRacunara.push(5);
             }
             else
             {
-                liKorisnika.innerHTML = `${unosKorisnika}10 poena`;
+                let liKorisnika = document.createElement('li');
+                liKorisnika.innerHTML = `<span class='sirina'>${unosKorisnika}</span> - 10 poena`;
                 listaKorisnika.appendChild(liKorisnika);
-                liRacunara.innerHTML = `${unosRacunara} 10 poena`;
-                listaRacunara.appendChild(liRacunara);            
+                nizOcenaKorisnika.push(10);
+
+                let liRacunara = document.createElement('li');
+                liRacunara.innerHTML = `<span class='sirina'>${unosRacunara}</span> - 10 poena`;
+                listaRacunara.appendChild(liRacunara);
+                nizOcenaRacunara.push(10);           
             }
-        elseif(unosKorisnika != 'false' && unosRacunara == 'false')
-        {
-            liKorisnika.innerHTML = `${unosKorisnika}15 poena`;
-            listaKorisnika.appendChild(liKorisnika);
-            liRacunara.innerHTML = `${unosRacunara} 0 poena`;
-            listaRacunara.appendChild(liRacunara);
         }
-        elseif(unosKorisnika == 'false' && unosRacunara != 'false')
+        else if(unosKorisnika != 'false' && unosRacunara == 'false')
         {
-            liKorisnika.innerHTML = `${unosKorisnika} 0 poena`;
+            let liKorisnika = document.createElement('li');
+            liKorisnika.innerHTML = `<span class='sirina'>${unosKorisnika}</span> - 15 poena`;
             listaKorisnika.appendChild(liKorisnika);
-            liRacunara.innerHTML = `${unosRacunara} 15 poena`;
+            nizOcenaKorisnika.push(15);
+
+            let liRacunara = document.createElement('li');
+            liRacunara.innerHTML = `<span class='sirina'>${unosRacunara}</span> - 0 poena`;
             listaRacunara.appendChild(liRacunara);
+            nizOcenaRacunara.push(0); 
         }
-        elseif(unosKorisnika != 'false' && unosRacunara == 'false')
+        else if(unosKorisnika == 'false' && unosRacunara != 'false')
         {
-            liKorisnika.innerHTML = `${unosKorisnika} 15 poena`;
+            let liKorisnika = document.createElement('li');
+            liKorisnika.innerHTML = `<span class='sirina'>${unosKorisnika}</span> - 0 poena`;
             listaKorisnika.appendChild(liKorisnika);
-            liRacunara.innerHTML = `${unosRacunara} 0 poena`;
+            nizOcenaKorisnika.push(0);
+
+            let liRacunara = document.createElement('li');
+            liRacunara.innerHTML = `<span class='sirina'>${unosRacunara}</span> - 15 poena`;
             listaRacunara.appendChild(liRacunara);
+            nizOcenaRacunara.push(15);
         }
+        else if(unosKorisnika == 'false' && unosRacunara == 'false')
+        {
+            let liKorisnika = document.createElement('li');
+            liKorisnika.innerHTML = `<span class='sirina'>${unosKorisnika}</span> - 0 poena`;
+            listaKorisnika.appendChild(liKorisnika);
+            nizOcenaKorisnika.push(0);
+
+            let liRacunara = document.createElement('li');
+            liRacunara.innerHTML = `<span class='sirina'>${unosRacunara}</span> - 0 poena`;
+            listaRacunara.appendChild(liRacunara);
+            nizOcenaRacunara.push(0);
+        }
+}
+
+function showScore(){
+    let duzinaNizaKorisnika = nizOcenaKorisnika.length;
+    let sumaK = 0;
+    let duzinaNizaRacunara = nizOcenaRacunara.length;
+    let sumaR = 0;
+
+    for(let i = 0; i < duzinaNizaKorisnika; i++)
+    {
+        sumaK += nizOcenaKorisnika[i];
+    }
+    let rezK = document.createElement('span');
+    rezK.innerHTML = `Ukupan skor igrača: ${sumaK} poena`;
+    skorKorisnika.appendChild(rezK);
+    skorKorisnika.style.display = "block";
+
+    for(let i = 0; i < duzinaNizaRacunara; i++)
+    {
+        sumaR += nizOcenaRacunara[i];
+    }
+    let rezR = document.createElement('span');
+    rezR.innerHTML = `Ukupan skor računara: ${sumaR} poena`;
+    skorRacunara.appendChild(rezR);
+    skorRacunara.style.display = "block";
+
+    if(sumaK > sumaR)
+    {
+        winner.innerHTML = `WINNER ${korisnik}`;
+        winner.style.display = "block";
+    }
+    else if(sumaK < sumaR)
+    {
+        winner.innerHTML = 'WINNER RACUNAR';
+        winner.style.display = "block";
     }
     else
     {
-        liKorisnika.innerHTML = `${unosKorisnika} 0 poena`;
-        listaKorisnika.appendChild(liKorisnika);
-        liRacunara.innerHTML = `${unosRacunara} 0 poena`;
-        listaRacunara.appendChild(liRacunara);
+        winner.innerHTML = 'NERESENO';
+        winner.style.display = "block";
     }
 }
 
@@ -254,45 +323,26 @@ function prikaziRezultate(){
     listaKorisnika.style.display = "block";
     listaRacunara.style.display = "block";
 
-    uporediRezultate(localStorage.korisnikDrzava, localStorage.kompDrzava);
+    uporediRezultate(localStorage.korisnikDržava, localStorage.kompDrzava);
     uporediRezultate(localStorage.korisnikGrad, localStorage.kompGrad);
     uporediRezultate(localStorage.korisnikReka, localStorage.kompReka);
     uporediRezultate(localStorage.korisnikPlanina, localStorage.kompPlanina);
-    uporediRezultate(localStorage.korisnikZivotinja, localStorage.kompZivotinja);
+    uporediRezultate(localStorage.korisnikŽivotinja, localStorage.kompZivotinja);
     uporediRezultate(localStorage.korisnikBiljka, localStorage.kompBiljka);
     uporediRezultate(localStorage.korisnikPredmet, localStorage.kompPredmet);
+
+    document.querySelector("#d").innerHTML = " " + localStorage.kompDrzava;
+    document.querySelector("#g").innerHTML = " " + localStorage.kompGrad;
+    document.querySelector("#r").innerHTML = " " + localStorage.kompReka;
+    document.querySelector("#pl").innerHTML = " " + localStorage.kompPlanina;
+    document.querySelector("#z").innerHTML = " " + localStorage.kompZivotinja;
+    document.querySelector("#b").innerHTML = " " + localStorage.kompBiljka;
+    document.querySelector("#pr").innerHTML = " " + localStorage.kompPredmet;
+
+    showScore();
 }
 
-function ocistiLS(){
-    let username = localStorage.getItem('korisnik');
-    localStorage.clear();
-    localStorage.setItem('korisnik', username);
-}
-
-start.addEventListener('click', e => {
-    e.preventDefault();
-
-    let broj = 90;
-    brojac.innerHTML = "";
-    let clock = setInterval(() => {
-        brojac.innerHTML = `<span class="lead">Vreme za igru: ${broj}</span>`;
-        if(broj > 0) {
-            broj--;
-        }
-        else
-        {
-            brojac.innerHTML = '<span class="lead">Vreme za igru je isteklo!</span>';
-            clearInterval(clock);
-        }
-    }, 1000);
-
-    let trenutnoSlovo = prikaziSlovo();
-    localStorage.setItem('tSlovo', trenutnoSlovo);
-    slovo.innerHTML = `Slovo: ${trenutnoSlovo}`;
-})
-
-forma.addEventListener( 'submit', e => {
-    e.preventDefault();
+function timer(){
 
     proveraUnosaKorisnika(drzava.value, drzava.name, localStorage.tSlovo);
     proveraUnosaKorisnika(grad.value, grad.name, localStorage.tSlovo);
@@ -310,12 +360,61 @@ forma.addEventListener( 'submit', e => {
     odgovorRacunara(localStorage.tSlovo, "Biljka", odgovorBiljka);
     odgovorRacunara(localStorage.tSlovo, "Predmet", odgovorPredmet);
 
-    prikaziRezultate();
+    setTimeout(prikaziRezultate, 1000);
+}
+
+function ocistiLS(){
+    let username = localStorage.getItem('korisnik');
+    localStorage.clear();
+    localStorage.setItem('korisnik', username);
+}
+
+start.addEventListener('click', e => {
+    e.preventDefault();
+
+    potvrdi.style.visibility = "visible";
+    ocistiLS();
+    let clock = setInterval(() => {
+        if(broj > 0) {
+            brojac.innerHTML = `<span class="lead">Vreme za igru: ${broj}</span>`;
+            broj--;
+        }
+        else
+        {
+            clearInterval(clock);
+            brojac.innerHTML = '<span class="lead">Vreme za igru je isteklo!</span>';
+            // console.log(localStorage);
+            if(kliknuto == false)
+            {
+                timer();
+            }
+            reset.style.display = "block";
+        }
+    }, 1000);
+
+    let trenutnoSlovo = prikaziSlovo();
+    localStorage.setItem('tSlovo', trenutnoSlovo);
+    slovo.innerHTML = `Slovo: ${trenutnoSlovo}`;
 })
 
-// reset.addEventListener('click', e => {
-//     e.preventDefault();
+forma.addEventListener( 'submit', e => {
+    e.preventDefault();
 
-//     forma.reset();
-//     ocistiLS();
-// })
+    kliknuto = true;
+    brojac.style.display = "none";
+    brojac2.innerHTML = '<span class="lead">Vreme za igru je isteklo!</span>';
+    brojac2.style.display = "block";
+    // console.log(localStorage);
+    timer();
+    reset.style.display = "block";
+})
+
+reset.addEventListener('click', () => {
+    forma.reset();
+    ocistiLS();
+    location.reload();
+})
+
+window.addEventListener('load', () => {
+    forma.reset();
+})

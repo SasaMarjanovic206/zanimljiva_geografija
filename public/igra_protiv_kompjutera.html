@@ -30,11 +30,14 @@
         <br>
 
         <h4 id="letter">Slovo:</h4>
-        <p id="counter"></p>
+        <div class="time">
+            <p id="counter"></p>
+            <p id="counter-none"></p>
+        </div>
 
         <div class="div col-md-3">
             <form id="formUser">
-                <h3>Korisnik</h3>
+                <h3 id="kor">Korisnik</h3>
                 <label>Država</label>
                 <input type="text" name="Država" id="drzava">
                 <br><br>
@@ -56,35 +59,37 @@
                 <label>Predmet</label>
                 <input type="text" name="Predmet" id="predmet">
                 <br><br><br>
-                <input type="submit" name="potvrdi" value="Potvrdi" id="potvrdi">
-                <h3 class="skor" id="skor_korisnika">Ukupan skor korisnika:</h3>
+                <input type="submit" name="potvrdi" value="Potvrdi" id="potvrdi" class="form-control input-sm">
             </form>
         </div>
         <div class="float-right">
             <h3>Računar</h3>
-            <p class="komp-p">Država</p>
-            <p class="komp-p">Grad</p>
-            <p class="komp-p">Reka</p>
-            <p class="komp-p">Planina</p>
-            <p class="komp-p">Životinja</p>
-            <p class="komp-p">Biljka</p>
-            <p class="komp-p">Predmet</p>
+            <p class="komp-p">Država<span id="d"></span></p>
+            <p class="komp-p">Grad<span id="g"></span></p>
+            <p class="komp-p">Reka<span id="r"></span></p>
+            <p class="komp-p">Planina<span id="pl"></span></p>
+            <p class="komp-p">Životinja<span id="z"></span></p>
+            <p class="komp-p">Biljka<span id="b"></span></p>
+            <p class="komp-p">Predmet<span id="pr"></span></p>
             <br>
-            <h3 class="skor" id="skor_racunara">Ukupan skor računara:</h3>
         </div>
 
         <div class="rezultat">
             <ul id="listaKorisnika">
-                <li>Korisnik</li>
+                <li id="imeKorisnika" class="cap"></li>
             </ul>
             <ul id="listaRacunara">
-                <li>Racunar</li>
+                <li class="cap">Racunar</li>
             </ul>
+            <div class="desni-div">
+                <h3 class="skor" id="skor_racunara"></h3>
+            </div>
+            <div class="levi-div">
+                <h3 class="skor" id="skor_korisnika"></h3>
+            </div>
+            <div id="winner"><center id="centar"></center></div>
+            <button type="button" class="col-md-3 btn-lg btn-primary" id="btnReset">Nova igra</button>
         </div>
-
-        <button type="button" class="col-md-3 btn-lg btn-primary" id="btnReset">Nova igra</button>
-
-    </div>
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
